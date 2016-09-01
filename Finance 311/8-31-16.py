@@ -81,3 +81,12 @@ Agency Problem:
             Board of directors
             concentrated ownership
             fiduciary duties
+
+Financial Markets
+    cash flows to the firm
+    primary vs secondary
+        primary -> ipo market, directly raising money
+        secondary -> Dealer vs auction Markets
+            listed vs over the counter
+                NYSE
+                NASDAQ
