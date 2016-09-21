@@ -1,5 +1,3 @@
-from __future__ import print_function
-
 from django.shortcuts import render
 from django.http import HttpResponse
 
@@ -12,17 +10,23 @@ import oauth2client
 from oauth2client import client
 from oauth2client import tools
 
-try:
-    import argparse
-    flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
-except ImportError:
-    flags = None
 
 # If modifying these scopes, delete your previously saved credentials
 # at ~/.credentials/sheets.googleapis.com-python-quickstart.json
 SCOPES = 'https://www.googleapis.com/auth/spreadsheets'
-CLIENT_SECRET_FILE = 'sponsorship-with-sheets-8544b228d0ec.json'
+CLIENT_SECRET_FILE = '../sponsorship-with-sheets-8544b228d0ec.json'
 APPLICATION_NAME = 'Google Sheets API Python Quickstart'
+
+
+# from working stt
+# def get_speech_service():
+#     credentials = GoogleCredentials.get_application_default().create_scoped(
+#         ['https://www.googleapis.com/auth/cloud-platform'])
+#     http = httplib2.Http()
+#     credentials.authorize(http)
+#
+#     return discovery.build(
+#         'speech', 'v1beta1', http=http, discoveryServiceUrl=DISCOVERY_URL)
 
 
 def get_credentials():
@@ -38,15 +42,11 @@ def get_credentials():
     if not credentials or credentials.invalid:
         flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, SCOPES)
         flow.user_agent = APPLICATION_NAME
-        if flags:
-            credentials = tools.run_flow(flow, store, flags)
-        else: # Needed only for compatibility with Python 2.6
-            credentials = tools.run(flow, store)
         print('Storing credentials to ' + credential_path)
     return credentials
 
 def home(request):
-    # credentials  = get_credentials()
+    credentials  = get_credentials()
     http = credentials.authorize(httplib2.Http())
     discoveryUrl = ('https://sheets.googleapis.com/$discovery/rest?'
                     'version=v4')
